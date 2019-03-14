@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #53687E;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.controls,
+.stopwatch {
+    text-decoration: none;
+    font-size: 50px; 
+    padding: 20px; 
+}
+
+.button {
+    text-decoration: none;
+    padding: 20px;
+    color: #fff;
+}
+#start:hover {
+    color: #99D847;
+}
+#stop:hover {
+    color: #9E0303;
+}
+#reset:hover {
+    color: #0BB1C6;
+}
