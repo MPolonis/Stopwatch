@@ -1,6 +1,6 @@
 class Stopwatch extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             running: false,
             times: {
@@ -9,7 +9,11 @@ class Stopwatch extends React.Component {
                 miliseconds: 0
             }
         };
-        this.print(this.state.times);
+        this.start = this.start.bind(this)
+        this.stop = this.stop.bind(this)
+        this.reset = this.reset.bind(this)
+        this.calculate = this.calculate.bind(this)
+
     }
 
     reset() {
@@ -20,10 +24,6 @@ class Stopwatch extends React.Component {
                 miliseconds: 0
             }      
         });
-    }
-
-    print() {
-        this.display.innerText = this.format(this.times);
     }
 
     format(times) {
@@ -42,17 +42,16 @@ class Stopwatch extends React.Component {
     step() {
         if (!this.state.running) return;
         this.calculate();
-        this.print();
     }
 
     calculate() {
-        this.state.times.miliseconds += 1;
+        this.state.times.miliseconds + 1;
         if (this.state.times.miliseconds >= 100) {
-            this.state.times.seconds += 1;
+            this.state.times.seconds + 1;
             this.state.times.miliseconds = 0;
         }
         if (this.state.times.seconds >= 60) {
-            this.state.times.minutes += 1;
+            this.state.times.minutes + 1;
             this.state.times.seconds = 0;
         }
     }
@@ -67,19 +66,24 @@ class Stopwatch extends React.Component {
     resetStopWatch() {
         this.stop();
         this.reset();
-        this.print();
     }
 
     render() {
         return (
             <div className={'container'}>
                 <nav className={'controls'}>
-                    <a href={'#'} className={'button'} id={'start'}>Start</a>
+                    <button className='button' onClick={this.start}>Start</button>
+                    <button className='button' onClick={this.stop}>Stop</button>
+                    <button className='button' onClick={this.reset}>Reset</button>
+                    {/* <a href={'#'} className={'button'} id={'start'}>Start</a>
                     <a href={'#'} className={'button'} id={'stop'}>Stop</a>
-                    <a href={'#'} className={'button'} id={'reset'}>Reset</a>
+                    <a href={'#'} className={'button'} id={'reset'}>Reset</a> */}
                 </nav>
-                <div className={'stopwatch'}></div>
-                <ul className={'results'}></ul>
+                <div className={'stopwatch'}>
+                    {this.state.times}
+                </div>
+                 
+                {/* <ul className={'results'} {this.state.times}></ul> */}
             </div>
         );
     }
@@ -94,5 +98,4 @@ function pad0(value) {
     return result;
 }
 
-const stopwatch = <Stopwatch />
-React.Dom.render(stopwatch, document.getElementById('app'));
+ReactDOM.render(<Stopwatch />, 'app');
