@@ -32,28 +32,29 @@ class Stopwatch extends React.Component {
 
     start() {
         if (!this.state.running) {
-            this.watch = setInterval(() => this.step(), 10);
+            this.watch = setInterval((this.state.times), 10);
             this.setState({
                 running: true
             });
         }
     }
 
-    step() {
-        if (!this.state.running) return;
-        this.calculate();
-    }
 
     calculate() {
+        const {minutes, seconds, miliseconds} = this.times 
         this.state.times.miliseconds + 1;
         if (this.state.times.miliseconds >= 100) {
             this.state.times.seconds + 1;
             this.state.times.miliseconds = 0;
         }
         if (this.state.times.seconds >= 60) {
-            this.state.times.minutes + 1;
-            this.state.times.seconds = 0;
+            this.state.times.times.minutes + 1;
+            this.state.times.times.seconds = 0;
         }
+        this.setState({
+            times: this.state.times
+        })
+        
     }
 
     stop() {
@@ -80,6 +81,7 @@ class Stopwatch extends React.Component {
                     <a href={'#'} className={'button'} id={'reset'}>Reset</a> */}
                 </nav>
                 <div className={'stopwatch'}>
+                    console.log('jolo')
                     {this.state.times}
                 </div>
                  
@@ -97,5 +99,8 @@ function pad0(value) {
     }
     return result;
 }
+window.addEventListener("load", function () {
+    console.log("Everything is loaded");
+});
 
-ReactDOM.render(<Stopwatch />, 'app');
+ReactDOM.render(<Stopwatch />, document.getElementById('app'));
